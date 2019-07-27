@@ -9,7 +9,12 @@ public abstract class AbstractInvocation implements Invocation {
 	private int pos = 0;
 
 	public AbstractInvocation(final List<Interceptor> interceptors) {
-		this.interceptors = interceptors != null ? interceptors : Collections.emptyList();
+		if (interceptors != null) {
+			this.interceptors = interceptors;
+			Collections.sort(this.interceptors);
+		} else {
+			this.interceptors = Collections.emptyList();
+		}
 	}
 
 	public Object invoke() throws Throwable {
