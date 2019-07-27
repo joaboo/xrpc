@@ -1,12 +1,14 @@
 package com.xrpc.spring.bean;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.InitializingBean;
 
 import com.xrpc.common.Constants;
+import com.xrpc.common.intercept.Interceptor;
 import com.xrpc.common.util.Assert;
 import com.xrpc.common.util.CollectionUtils;
 import com.xrpc.common.util.StringUtils;
@@ -31,6 +33,8 @@ public class SpringClientConfigBean implements InitializingBean {
 	private Set<String> interfaceList;
 	private Set<String> providerList;
 
+	private List<Interceptor> interceptors;
+
 	public void addInterface(String interfaceName) {
 		if (interfaceList == null) {
 			interfaceList = new HashSet<>();
@@ -53,6 +57,7 @@ public class SpringClientConfigBean implements InitializingBean {
 		clientConfig.setTimeoutInMillis(timeoutInMillis);
 		clientConfig.setLbStrategy(lbStrategy);
 		clientConfig.setHaStrategy(haStrategy);
+		clientConfig.setInterceptors(interceptors);
 		clientConfig.setInterfaceClassList(interfaceList.stream().map(interfaceName -> {
 			try {
 				return Class.forName(interfaceName);

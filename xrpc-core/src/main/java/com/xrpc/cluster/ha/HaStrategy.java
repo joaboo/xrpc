@@ -6,5 +6,5 @@ import com.xrpc.rpc.client.Invoker;
 
 @SPI("failfast")
 public interface HaStrategy {
-	Response call(Invoker invoker) throws Exception;
+	Response call(Invoker invoker) throws Throwable;
 }

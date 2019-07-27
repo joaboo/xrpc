@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FailoverHaStrategy extends AbstractHaStrategy {
 
 	@Override
-	public Response call(Invoker invoker) throws Exception {
+	public Response call(Invoker invoker) throws Throwable {
 		Request request = invoker.getRequest();
 		int retryNumber = invoker.getRetryNumber();
 		if (retryNumber < 0) {
@@ -31,7 +31,7 @@ public class FailoverHaStrategy extends AbstractHaStrategy {
 				TimeUnit.MILLISECONDS.sleep(100);
 				log.debug("Client retry [{}]", i + 1);
 			} catch (Throwable e) {
-				log.warn(String.format("FailOverHaStrategy Call false for request:%s", request), e);
+				log.warn("FailOverHaStrategy Call false for request:" + request, e);
 			}
 		}
 		throw new RpcException("FailoverHaStrategy Call should not come here!");

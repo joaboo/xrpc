@@ -11,6 +11,8 @@ import com.xrpc.cluster.ha.HaStrategy;
 import com.xrpc.cluster.loadbalance.LoadBalance;
 import com.xrpc.common.Constants;
 import com.xrpc.common.extension.ExtensionLoader;
+import com.xrpc.common.intercept.AbstractInvocation;
+import com.xrpc.common.intercept.Interceptor;
 import com.xrpc.common.threadpool.ThreadPoolConfig;
 import com.xrpc.common.util.CollectionUtils;
 import com.xrpc.config.ClientConfig;
@@ -101,17 +103,8 @@ public abstract class AbstractClient implements Client {
 		public Object call() throws Exception {
 			try {
 				Request request = getRequest(method, args);
-				Response response = haStrategy.call(new Invoker() {
-					@Override
-					public Response invoke() throws Throwable {
-						return request(request);
-					}
-
-					@Override
-					public Request getRequest() {
-						return request;
-					}
-				});
+				ClientInvocation clientInvocation = new ClientInvocation(haStrategy, request, clientConfig.getInterceptors());
+				Response response = (Response) clientInvocation.invoke();
 				if (response.getException() != null) {
 					throw response.getException();
 				}
@@ -131,6 +124,33 @@ public abstract class AbstractClient implements Client {
 		@Override
 		public String getName() {
 			return name;
+		}
+	}
+
+	class ClientInvocation extends AbstractInvocation {
+
+		final HaStrategy haStrategy;
+		final Request request;
+
+		ClientInvocation(HaStrategy haStrategy, Request request, List<Interceptor> interceptors) {
+			super(interceptors);
+			this.haStrategy = haStrategy;
+			this.request = request;
+		}
+
+		@Override
+		protected Object invoke0() throws Throwable {
+			return haStrategy.call(new Invoker() {
+				@Override
+				public Response invoke() throws Throwable {
+					return request(request);
+				}
+
+				@Override
+				public Request getRequest() {
+					return request;
+				}
+			});
 		}
 	}
 

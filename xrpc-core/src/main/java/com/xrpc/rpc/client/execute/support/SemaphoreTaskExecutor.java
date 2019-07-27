@@ -18,7 +18,7 @@ public class SemaphoreTaskExecutor implements TaskExecutor {
 	@Override
 	public Object execute(Task task) throws Throwable {
 		if (!semaphore.tryAcquire()) {
-			throw new NoAvailableWorkerException(String.format("Service(%s) has no available worker in client!", task.getName()));
+			throw new NoAvailableWorkerException("Service(" + task.getName() + ") has no available worker in client!");
 		}
 
 		try {

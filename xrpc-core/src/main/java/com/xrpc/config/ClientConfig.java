@@ -2,6 +2,8 @@ package com.xrpc.config;
 
 import java.util.List;
 
+import com.xrpc.common.intercept.Interceptor;
+
 import lombok.Data;
 
 @Data
@@ -21,5 +23,7 @@ public class ClientConfig {
 
 	private List<Class<?>> interfaceClassList;
 	private List<ProviderAddress> providerList;
+
+	private List<Interceptor> interceptors;
 
 }

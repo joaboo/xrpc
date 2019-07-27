@@ -4,7 +4,6 @@ import java.net.HttpURLConnection;
 import java.util.concurrent.TimeUnit;
 
 import com.xrpc.common.Constants;
-import com.xrpc.common.util.StringUtils;
 import com.xrpc.config.ClientConfig;
 import com.xrpc.config.ProviderAddress;
 import com.xrpc.exception.HttpExecutionException;
@@ -42,11 +41,11 @@ public class OkHttpClient extends AbstractHttpClient {
 			Call call = httpClient.newCall(httpRequest);
 			response = call.execute();
 		} catch (Exception e) {
-			throw new HttpExecutionException(StringUtils.join("Service(", getName(), ") fails to execute HttpRequest"), e);
+			throw new HttpExecutionException("Service(" + getName() + ") fails to execute HttpRequest", e);
 		}
 		int status = response.code();
 		if (status != HttpURLConnection.HTTP_OK) {
-			throw new HttpExecutionException(StringUtils.join("Service(", getName(), ") receives non-OK status(", status, ")"));
+			throw new HttpExecutionException("Service(" + getName() + ") receives error status(" + status + ")");
 		}
 		try {
 			return response.body().bytes();
