@@ -1,0 +1,3 @@
+jdk=com.xrpc.serialize.support.JDKSerializer
+kryo=com.xrpc.serialize.support.KryoSerializer
+protostuff=com.xrpc.serialize.support.ProtostuffSerializer

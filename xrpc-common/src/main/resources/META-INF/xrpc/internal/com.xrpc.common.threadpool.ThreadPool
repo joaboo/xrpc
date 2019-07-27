@@ -1,0 +1,3 @@
+fixed=com.xrpc.common.threadpool.support.FixedThreadPool
+cached=com.xrpc.common.threadpool.support.CachedThreadPool
+limited=com.xrpc.common.threadpool.support.LimitedThreadPool

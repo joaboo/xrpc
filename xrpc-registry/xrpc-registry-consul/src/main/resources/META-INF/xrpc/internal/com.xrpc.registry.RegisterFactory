@@ -1,0 +1,1 @@
+register=com.xrpc.registry.consul.ConsulRegisterFactory

@@ -1,0 +1,2 @@
+failfast=com.xrpc.cluster.ha.support.FailfastHaStrategy
+failover=com.xrpc.cluster.ha.support.FailoverHaStrategy

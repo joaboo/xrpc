@@ -1,0 +1,2 @@
+random=com.xrpc.cluster.loadbalance.support.RandomLoadBalance
+roundrobin=com.xrpc.cluster.loadbalance.support.RoundRobinLoadBalance

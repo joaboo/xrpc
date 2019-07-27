@@ -1,0 +1,5 @@
+server:
+  port: 1002
+spring:
+  application:
+    name: xrpc-demo-consumer
