@@ -33,7 +33,7 @@
 
 		<okhttp.version>3.14.2</okhttp.version>
 		<jetty.version>9.4.19.v20190610</jetty.version>
-		<netty.version>4.1.37.Final</netty.version>
+		<netty.version>4.1.42.Final</netty.version>
 
 		<consul.version>1.4.2</consul.version>
 		<eureka.version>1.9.12</eureka.version>
